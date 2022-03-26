@@ -3,9 +3,9 @@ import { Results as ResultsCharacter} from "./model/interfaceCharacter.js";
 import * as UI from "./interfaz/interfazIndex.js";
 import * as UIPersonaje from "./interfaz/interfazPersonaje.js"; 
 import { activateSpinner, desactivateSpinner, showError } from "./interfaz/utilidades.js";
+import { formData } from "./interfaz/interfazPersonaje.js";
 
 const conexion:Conexion = new Conexion();
-
 const getId = ():string|null=>{
     let params:URLSearchParams = new URLSearchParams(location.search);
     let id:string|null = params.get("id");
@@ -42,6 +42,11 @@ const errorRedirectIndex = (msg:string)=>{
 }
 
 const init = async ()=>{
+    if(formData)
+        formData.innerHTML=""; //para que no puedan consultar personajes aquí!.
+    else{
+        console.log("no pude encontrar el formulario pude encontrar")
+    }
     activateSpinner();
     const id:string|null = getId();
     if(id){

@@ -5,3 +5,4 @@ export const status = document.querySelector("#status");
 export const gender = document.querySelector("#gender");
 export const location = document.querySelector("#location");
 export const container = document.querySelector("#container");
+export const formData:Element|null = document.querySelector("#formData");
