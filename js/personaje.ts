@@ -3,7 +3,6 @@ import { Results as ResultsCharacter} from "./model/interfaceCharacter.js";
 import * as UI from "./interfaz/interfazIndex.js";
 import * as UIPersonaje from "./interfaz/interfazPersonaje.js"; 
 import { activateSpinner, desactivateSpinner, showError } from "./interfaz/utilidades.js";
-import { formData } from "./interfaz/interfazPersonaje.js";
 
 const conexion:Conexion = new Conexion();
 const getId = ():string|null=>{
@@ -42,8 +41,8 @@ const errorRedirectIndex = (msg:string)=>{
 }
 
 const init = async ()=>{
-    if(formData)
-        formData.innerHTML=""; //para que no puedan consultar personajes aquí!.
+    if(UIPersonaje.formData)
+        UIPersonaje.formData.innerHTML=""; //para que no puedan consultar personajes aquí!.
     else{
         console.log("no pude encontrar el formulario pude encontrar")
     }
@@ -54,19 +53,22 @@ const init = async ()=>{
 
         if(!character.error){
             UIPersonaje.image?.setAttribute("src",character.image);
-
-            if(UIPersonaje.name)
+            debugger;
+            if(UIPersonaje.name){
                 UIPersonaje.name.textContent = character.name;
+            }
             if(UIPersonaje.infoEpisodes)
                 UIPersonaje.infoEpisodes.textContent = "ha aparecido en " + character.episode?.length + " episodios"  ;
             if(UIPersonaje.status){
                 let iconStatus:string = getIconStatus(character.status);
-                    UIPersonaje.status.innerHTML = ` ${character.status} ${iconStatus}`;
+                UIPersonaje.status.innerHTML = ` ${character.status} ${iconStatus}`;
             }
             if (UIPersonaje.gender)
-                    UIPersonaje.gender.textContent = character.gender;
+                UIPersonaje.gender.textContent = character.gender;
+            if(UIPersonaje.species)
+                UIPersonaje.species.textContent = character.species;
             if( UIPersonaje.location)
-                    UIPersonaje.location.textContent = character.location.name;
+                UIPersonaje.location.textContent = character.location.name;
         }else{
             errorRedirectIndex("lo sentimos, no podemos obtener la informacion de ese id.");
         }

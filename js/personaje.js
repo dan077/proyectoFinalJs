@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Conexion } from "./model/conexion.js";
 import * as UIPersonaje from "./interfaz/interfazPersonaje.js";
 import { activateSpinner, desactivateSpinner, showError } from "./interfaz/utilidades.js";
-import { formData } from "./interfaz/interfazPersonaje.js";
 const conexion = new Conexion();
 const getId = () => {
     let params = new URLSearchParams(location.search);
@@ -45,8 +44,8 @@ const errorRedirectIndex = (msg) => {
 };
 const init = () => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    if (formData)
-        formData.innerHTML = ""; //para que no puedan consultar personajes aquí!.
+    if (UIPersonaje.formData)
+        UIPersonaje.formData.innerHTML = ""; //para que no puedan consultar personajes aquí!.
     else {
         console.log("no pude encontrar el formulario pude encontrar");
     }
@@ -56,8 +55,10 @@ const init = () => __awaiter(void 0, void 0, void 0, function* () {
         const character = yield conexion.getCharacterId(id);
         if (!character.error) {
             (_a = UIPersonaje.image) === null || _a === void 0 ? void 0 : _a.setAttribute("src", character.image);
-            if (UIPersonaje.name)
+            debugger;
+            if (UIPersonaje.name) {
                 UIPersonaje.name.textContent = character.name;
+            }
             if (UIPersonaje.infoEpisodes)
                 UIPersonaje.infoEpisodes.textContent = "ha aparecido en " + ((_b = character.episode) === null || _b === void 0 ? void 0 : _b.length) + " episodios";
             if (UIPersonaje.status) {
@@ -66,6 +67,8 @@ const init = () => __awaiter(void 0, void 0, void 0, function* () {
             }
             if (UIPersonaje.gender)
                 UIPersonaje.gender.textContent = character.gender;
+            if (UIPersonaje.species)
+                UIPersonaje.species.textContent = character.species;
             if (UIPersonaje.location)
                 UIPersonaje.location.textContent = character.location.name;
         }
